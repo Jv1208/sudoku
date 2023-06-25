@@ -1,0 +1,9 @@
+1:este sudoku es libre que quiero decir con esto tu pones las variables en el tablero y
+ luego las resuelves el F5 te ayudara a resolverlo si tienes dudas ,con f1 te ayudara ,con f3 a cargar
+,con f8 podras borras los numeros y poner nuvas sentencias como es libre es lo que lo ase 
+divertido el juego  puedes aserlo como quiereas ya sea dificil o facil el sudoku,y por ultimo con ESC 
+finalizas el juego y se despide de ti dando un agradecimiento.
+
+2:el tablero al principio se  pondra vacio tienes que ponerle las sentencia aqui puedes ponerlas facil o dificil
+
+

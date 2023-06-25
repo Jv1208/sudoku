@@ -1,0 +1,14 @@
+con sinserida profesora este juego fue impirado en los ejemplos que vi de
+ github y videos de como aser un videojuego y por supuesto 
+de ejercicios que vi de pascal varios ejemplos que vi de como se hace un sudoku 
+la extrucctura del programa yo me inspire en ejemplos 
+que vi ya que como no tenia un programa vase tuve que inspirarme en los
+ ejemplos que vi y no tenia conocimiento de como hacer un videojuego de sudoku
+ ,este juego si sigue la estructura de un sudoku lamento profesora si no es lo que pidio es 
+mi primera vez asiendo un videojuego yo solo ,yo tube que ver los ejemplos y guiarme,
+entre ellas esta la sentecia,gotoxy,writrexy que yo nunca las e echo y viedon los ejemplos y investigando,
+ con ellas pude hacer la estrucctura del tablero utilizando puras (o) y cambiandpo el color ,bueno sin mas que 
+agregar me disculpo si no le gusto el juego o no es lo que pidio profesora me despido.
+
+NOMBRE Y APELLIDO: JESUS VILLARROEL   
+CEDULA:29.680.041

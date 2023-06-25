@@ -1,0 +1,336 @@
+PROGRAMA SUDOKU;
+USOS CRT;
+
+CONSTANTES IZQUIERDA igual  14;
+           ARRIBA    igual 4;
+           ESPACIO igual '';
+           ARCHIVO DE DATOS igual 'SUDOKU.DATO';
+              COLUMNA1 igual Gris oscuro;
+              COLUMNA2 igual GRIS CLARO;
+              COLBG igual  AZUL;
+
+VARIBLE S dos puntos FORMACION[1..9,1..9,0..9] DE byte;
+x,y dos puntos  entero;
+ ch dos puntos  carácter;
+procedimiento writexy(x,y dos puntos entero; s dos puntos cadena);
+
+comenzar
+   
+  gotoxi(x,y);
+  escribir(es);
+fin;
+
+{ver plano de sudoku  }
+
+procedimiento ViewSudoku;
+comenzar
+
+  
+  
+  color de texto (COL1);
+  escribirxy(IZQUIERDA, ARRIBA, '      oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 1, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 2, 'oooooooooooooooooooooooooooooooooooooo' );
+  escribirxy( IZQUIERDA, ARRIBA mas 3, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 4, 'oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 5, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 6, 'oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 7, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 8, 'oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 9, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 10, 'oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 11, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 12, 'oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 13, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 14, 'oooooooooooooooooooooooooooooooooooooo' );
+  escribirxy( IZQUIERDA, ARRIBA mas 15, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 16, 'oooooooooooooooooooooooooooooooooooooo');
+  escribirxy( IZQUIERDA, ARRIBA mas 17, 'o  o   o   o  o  o   o    o    o     o' );
+  escribirxy( IZQUIERDA, ARRIBA mas 18, 'oooooooooooooooooooooooooooooooooooooo');
+  color de texto (COL2);
+
+fin;
+   
+ 
+procedimiento VerAyuda;
+
+comenzar
+
+   escribexy(2, 5,'x igual y igual');
+  writexy(2, 7,'Elección igual');
+  writexy(2,24,'F1-Ayuda F2-ahorrar F3-Carga F5- Resolver F8-Borrar flechas-Mover ESC-Finalizar');
+  
+  writexy(54,19,'creador jesus villarroel');
+  escribirxy(54,20,'de 2023');
+  escribirxy(54,10,' *S*   * **  * ** ');
+  escribirxy(54,11,' *U*  *    *     *  ');
+  escribirxy(54,12,' *D* *     *      * ');
+  escribirxy(54,13,' *O* *           *    ');
+  escribirxy(54,14,' *K*  *        *        ');
+  escribirxy(54,15,' *U*   *    *          ');
+  escribirxy(54,16,'         *          ');
+
+fin;
+ 
+ 
+{ ver ayuda de sudoku }
+ayuda de procedimiento;
+comenzar
+fin;
+{ mover a la posición y escribir el número}
+{ escribe el número posible para esto }
+procedimiento Kurzor(x,y,c:entero);
+var xr,yr:entero;
+    yo: entero;
+comenzar
+gotoxi(4,5); escribir(x);
+  gotoxi(8,5); escribir(y);
+
+{ver elección}
+  gotoxi(2,8);
+  para i dos puntos igual 1 a 9 hacer
+    si(s[x,y,i] igual a 0)entonces
+       escribir (ESPACIO)
+    demás
+       escribir(yo);
+
+{área despejada}
+procedimiento Claro;
+var xc,yc,i dos puntos  entero;
+comenzar
+  para xc dos puntos igual 1 a 9 hacer
+    para yc dos puntos igual 1 a 9 hacer
+    comenzar
+      para idos puntos igual 0 a 9 hacer
+         s[xc,yc,i] dos puntos igual i;
+ 
+      Curzor(xc,yc,COLBG);
+    fin;
+fin;
+
+{Guardar en archivo}
+guardar procedimiento;
+var f dos puntos  archivo de byte;
+    xc,yc dos puntos  entero;
+comenzar
+  Asignar(f, DAT_FILE);
+  Reescribir (f);
+ 
+  para xc dos puntos igual 1 a 9 hacer
+    para yc dos puntos igual 1 a 9 hacer
+      Escribir(f, s[xc,yc,0]);
+
+Cerrar (f);
+fin;
+ 
+ 
+{ carga del archivo }
+procedimiento Carga;
+var f dos puntos  archivo de bytes;
+    xc,yc dos puntos  entero;
+comenzar
+  Claro;
+ 
+  {$ yo-}
+  Asignar(f, DAT_FILE);
+  Reiniciar(f);
+  {$yo+}
+ 
+  { si existe el archivo }
+  si (IOResultado igual 0)entonces
+  comenzar
+    para xc dos puntos igual 1 a 9 hacer
+      para yc dos puntos igual 1 a 9 hacer
+      comenzar
+        Leer(f, s[xc,yc,0]);
+        Curzor(xc,yc,COLBG);
+      fin;
+    Cerrar (f);
+  fin;
+fin;
+
+{ si solo es de un tipo, entonces es una resolución }
+función GetSingle(x,y dos puntos  entero) dos puntos byte;
+var i dos puntos  entero;
+    w dos puntos  entero;
+comenzar
+  w dos puntos igual 0;
+ 
+  para i dos puntos igual 1 a 9 hacer
+    si( s[x,y,i]menor y mayor 0 ) entonces
+    comenzar
+      si (w igual 0)entonces w dos puntos igual i
+               más w dos puntos igual -1;
+    fin;
+ 
+  {resultado}
+  si (w mayor 0) entonces GetSingle dos puntos igual w
+           else ObtenerSingle dos puntos igual 0;
+fin;
+ 
+ 
+{prueba cruzada de uso de algun numero}
+función KrossTest(xc,yc:integer) dos puntos byte;
+var x,y dos puntos entero;
+  xs,ys dos puntos entero;
+      yo dos puntos entero;
+    poc dos puntos  entero;
+comenzar
+  PruebaKross dos puntos igual 0;
+ 
+  para i dos puntos igual 1 a 9 hacer
+    si( s[xc,yc,i]menor y mayor 0 )entonces
+    comenzar
+      poc dos puntos igual 0;
+ 
+      {de izquierda a derecha}
+      para x dos puntos 1 a 9 hacer
+        si (( s[x,yc,i]igual i ) y (s[x,yc,0]igual 0 ))entonces
+           inc(poc);
+ 
+      { ¿soltero? }
+      si (poc igual 1) entonces
+          PruebaKross dos puntos i;
+ 
+      poc dos puntos 0;
+      { arriba a abajo }
+      para y dos puntos igual 1 a 9 hacer
+        si (( s[xc,y,i] igual i ) y (s[xc,y,0]igual 0 ))entonces
+           inc(poc);
+ 
+      { soltero }
+      si (poc igual 1) entonces
+          PruebaKross dos puntos i;
+ 
+      { en cuadrado }
+      poc dos puntos 0;
+      xs dos puntos (xc-1) división 3;
+      ys dos puntos (yc-1) división 3;
+ 
+      para x dos puntos 1 a 3 hacer
+        para y dos puntos 1 a 3 hacer
+          si (( s[3por xs mas x,3 por ys mas y,i]igual i ) y (s[3por xs mas x,3 por ys mas y,0]igual 0 ))entonces
+               inc(poc);
+{ soltero }
+      si (poc igual 1) entonces
+          PruebaKross dos puntos i;
+    fin;
+fin;
+ 
+ 
+{hacer resolver}
+función Resolver dos puntos booleano;
+var xc,yc dos puntos entero;
+    xs,ys dos puntos  entero;
+    xi,yi dos puntos  entero;
+      c,i dos puntos  entero;
+comenzar
+  Resolver dos puntos igual falso;
+ 
+  para xc dos puntos igual 1 a 9 hacer
+    para yc dos puntos igual 1 a 9 hacer
+      si( s[xc,yc,0] igual 0 )entonces
+       comenzar
+         {resuelve esto}
+         c dos puntos igual s[xc,yc,0];
+ 
+         { eje x }
+         para i dos puntos igual 1 a 9 hacer
+           s[xc,yc, s[i,yc,0]] dos puntos igual 0;
+ 
+         { eje y }
+         para i dos puntos igual 1 a 9 hacer
+           s[xc,yc, s[xc,i,0]] dos puntos igual 0;
+ 
+         { Hacer cuadrados }
+         xs dos puntos igual (xc menos 1) división 3;
+         ys dos puntos igual (yc menos 1) división 3;
+ 
+         para xi dos puntos igual 1 a 3 hacer
+           para yi dos puntos igual 1 a 3 hacer
+             s[xc,yc, s[3 por xs mas xi,3 por ys mas yi,0]] dos puntos igual 0;
+{ resolver de simplemente probar }
+         s[xc,yc,0] dos puntos igual ObtenerSingle(xc,yc);
+ 
+         { simplemente pruebe sin resultado pruebe la prueba cruzada }
+         si( s[xc,yc,0] igual 0 )entonces
+             s[xc,yc,0] dos puntos igual PruebaKross(xc,yc);
+ 
+         Curzor(xc,yc,COLBG);
+ 
+         { si encontrar resolver }
+         si( s[xc,yc,0]menor y mayor a c )entonces
+             Resolver dos puntos verdadero;
+       fin;
+fin;
+ 
+ 
+COMENZAR
+  Fondo de texto (COLBG);
+  ClrScr;
+ 
+  VerSudoku;
+  Ver ayuda;
+  Carga;
+ 
+  x dos puntos igual a 1; y dos puntos igual a 1;
+ 
+  repetir
+    { mover kurzor }
+    Curzor(x,y,COLBG);
+ 
+    { mover kurzor }
+    ch dos puntos igual lectura clave;
+ 
+    si (ch igual  asterisco 0) entonces
+        ch dos puntos igual lectura clave;
+ 
+    { Teclas F1, F2, F3, F5, F8 }
+    if( ch igual asterisco 59 ) entonces Ayuda;
+    si (ch igual asterisco  60) entonces Guardar;
+    if( ch igual asterisco 61 ) entonces Cargar;
+    if( ch dos puntos asterisco 63 ) entonces  mientras(Resolver) hacer;
+    if( ch dos puntos asterisco 66 ) luego Limpiar;
+ 
+    { espacio como cero }
+    si( ch igual a ' ' )entonces ch dos puntos igual '0';
+ 
+    { insertar número }
+    si( ch en ['0'..'9']) entonces
+      comenzar
+        s[x,y,0] dos puntos igual ord(ch) menos  ord('0');
+        Curzor(x,y,COLBG);
+        x dos puntos igual x mas 1;
+      fin;
+ {flechas}
+    si( ch igual  75 ) entonces x dos puntos asterisco x menos 1;
+    si( ch igual asterisco 77 ) entonces x dos puntos igual x mas 1;
+    si( ch igual  asterisco 72 ) entonces y dos puntos igual  y menos 1;
+    si( ch igual  asterisco 80 ) entonces y dos puntos igual y mas 1;
+ 
+    { inicio - aleta }
+    si( ch igual asterisco 71 ) entonces x dos puntos igual 1;
+    si( ch igual asterisco 79 ) entonces x dos puntos igual 9;
+ 
+    { inicio - aleta }
+    si( ch igual asterisco 73 ) entonces y dos puntos igual 1;
+    si( ch  igual asterisco 81 ) entonces y dos puntos igual 9;
+ 
+    { comprobar la posición }
+    si (x menor 1) entonces x dos puntos igual 9;
+    si ( x mayor a  9 ) entonces comience x dos puntos igual  1; y dos puntos igual y mas 1; fin;
+    si (y menor a 1) entonces y dos puntos igual 9;
+    si (y mayor a 9) entonces y dos puntos igual 1;
+ 
+  hasta (ch igual asterisco 27); { ESC }
+ 
+ writexy(6,3,'*GRACIAS POR JUGAR *');
+   WRITEXY(6,4,' PRESIONE ENTER PARA CONTINUAR');
+ 
+  { por seguridad }
+  
+  Ahorrar;
+  
+    
+FIN.
+
